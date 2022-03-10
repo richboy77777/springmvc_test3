@@ -41,7 +41,7 @@ public class CodeController {
 //		입력 실행
 		service.insert(dto);
 		
-		return "redirect:/code/codeFroupList";
+		return "redirect:/code/codeGroupList";
 	}
 	
 	@RequestMapping(value = "/code/codeGroupView")
@@ -80,7 +80,7 @@ public class CodeController {
 		// 수정 프로세스 실행 
 		service.update(dto);
 		
-		return "redirect:/code/codeFroupView?ifcgSeq=" + dto.getIfcgSeq();
+		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq();
 	}
 	
 //	infrCode

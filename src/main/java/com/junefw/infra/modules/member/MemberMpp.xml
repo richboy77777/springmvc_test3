@@ -10,16 +10,18 @@
 		type="com.junefw.infra.modules.member.Member"></resultMap>
 
 	<select id="selectList" resultMap="resultMapObj">
-		select
-		ifmmSeq
-		, ifmmId
-		, ifmmName
-		from
-		infrMember
+		SELECT
+		a.ifmmSeq
+		, a.ifmmId
+		, a.ifmmName
+		FROM
+			bts.infrMember a
+		WHERE 1=1
+			AND ifmmDelNy = 0	
 	</select>
 
 	<insert id="insert">
-		insert into infrMember (
+		INSERT INTO infrMember (
 		ifmmId
 		,ifmmName
 		,ifmmDelNy
@@ -29,5 +31,25 @@
 		,0
 		)
 	</insert>
+	
+		<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+		a.ifmmSeq
+		, a.ifmmId
+		, a.ifmmName
+		, a.ifmmDelNy
+		FROM 
+			bts.infrMember a
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</select>
+	
+	<update id="update">
+		UPDATE infrMember SET 
+		 	ifmmId = #{ifmmId}
+			, ifmmName = #{ifmmName}
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</update>
 
 </mapper>
