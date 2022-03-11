@@ -18,13 +18,13 @@ public class CodeDao { // CodeMpp로 넘겨서 데이터를 받아오ㅓ는 역�
 	private static String namespace = "com.junefw.infra.modules.code.CodeMpp";
 	
 //	infrCodeGroup
-	public List<Code> selectList() {List<Code> list = sqlSession.selectList(namespace + ".selectList", ""); return list;} // List는 배열임 배열에다가 객체를 쭉 받는다 의미			
+	public List<Code> selectList(CodeVo vo) {List<Code> list = sqlSession.selectList(namespace + ".selectList", vo); return list;} // List는 배열임 배열에다가 객체를 쭉 받는다 의미			
 	public int insert(Code dto) {return sqlSession.insert(namespace + ".insert", dto);}
 	public Code selectOne(CodeVo vo) { return sqlSession.selectOne(namespace + ".selectOne", vo);}
 	public int update(Code dto) {return sqlSession.update(namespace + ".update", dto);}
 
 	//	infrCode
-	public List<Code> selectListCode() {List<Code> list = sqlSession.selectList(namespace + ".selectListCode", ""); return list;} // List는 배열임 배열에다가 객체를 쭉 받는다 의미			
+	public List<Code> selectListCode(CodeVo vo) {List<Code> list = sqlSession.selectList(namespace + ".selectListCode", vo); return list;} // List는 배열임 배열에다가 객체를 쭉 받는다 의미			
 	public int insertCode(Code dto) {return sqlSession.insert(namespace + ".insertCode", dto);}
 	public Code selectOneCode(CodeVo vo) { return sqlSession.selectOne(namespace + ".selectOneCode", vo);}
 	public int updateCode(Code dto) {return sqlSession.update(namespace + ".updateCode", dto);}

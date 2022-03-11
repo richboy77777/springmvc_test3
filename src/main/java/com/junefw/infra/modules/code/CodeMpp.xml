@@ -17,9 +17,13 @@
 		, a.ifcgName
 		, a.ifcgDelNy
 		FROM 
-			bts.infrCodeGroup a
+			infrCodeGroup a
 		WHERE 1=1
-			AND ifcgDelNy = 0
+			<choose>
+				<when test="shIfcgDelNy == 1"> AND ifcgDelNy = 1</when>
+				<when test="shIfcgDelNy == 0"> AND ifcgDelNy = 0</when>
+			</choose>
+			<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
 	</select>
 	
 	<insert id="insert">
@@ -39,7 +43,7 @@
 		, a.ifcgName
 		, a.ifcgDelNy
 		FROM 
-			bts.infrCodeGroup a
+			infrCodeGroup a
 		WHERE 1=1
 			AND ifcgSeq = #{ifcgSeq}
 	</select>
@@ -59,9 +63,11 @@
 		, a.ifcdName
 		, a.ifcdDelNy
 		FROM 
-			bts.infrCode a
+			infrCode a
 		WHERE 1=1
 			AND ifcdDelNy = 0
+			<if test="shIfcgSeq != null and !shIfcgSeq.equals('')"> AND ifcgSeq = #{shIfcgSeq}</if>
+		order by a.ifcgSeq, ifcdOrder	
 	</select>
 	
 	<insert id="insertCode">
@@ -82,7 +88,7 @@
 		, a.ifcdName
 		, a.ifcdDelNy
 		FROM 
-			bts.infrCode a
+			infrCode a
 		WHERE 1=1
 			AND ifcdSeq = #{ifcdSeq}
 	</select>
