@@ -14,10 +14,15 @@
 		a.ifmmSeq
 		, a.ifmmId
 		, a.ifmmName
+		, a.ifmmDelNy
 		FROM
 			bts.infrMember a
 		WHERE 1=1
-			AND ifmmDelNy = 0	
+			<choose>
+				<when test="shIfmmDelNy == 1"> AND ifmmDelNy = 1</when>
+				<when test="shIfmmDelNy == 0"> AND ifmmDelNy = 0</when>
+			</choose>
+			<if test="shIfmmName != null and !shIfmmName.equals('')"> AND ifmmName LIKE concat('%',#{shIfmmName},'%')</if>	
 	</select>
 
 	<insert id="insert">

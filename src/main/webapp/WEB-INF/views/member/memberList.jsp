@@ -5,6 +5,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
+<form id="" name="" method="get" action="/infra/member/memberList">
+
+<select name="shIfmmDelNy">
+	<option value="">::삭제여부::
+	<option value="1">Y
+	<option value="0">N
+</select>
+
+멤버이름 : <input type="text" name="shIfmmName">
+<input type="submit" name="search">
+<br>
 <c:choose>
 	<c:when test="${fn:length(list) eq 0}">
 		<tr>
@@ -14,8 +25,10 @@
 	<c:otherwise>
 		<c:forEach items="${list}" var="item" varStatus="status">	
 		
-		<c:out value="${item.ifmmSeq}"/> | <a href="/infra/member/memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmId}"/></a> | <c:out value="${item.ifmmName}"/> <br>
+		<c:out value="${item.ifmmSeq}"/> | <a href="/infra/member/memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmId}"/></a> | <c:out value="${item.ifmmName}"/> | <c:out value="${item.ifmmDelNy}"/><br>
 		
 		</c:forEach>
 	</c:otherwise>
 </c:choose>	
+
+</form>

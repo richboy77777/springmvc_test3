@@ -102,11 +102,10 @@ public class CodeController {
 	
 	@RequestMapping(value = "/code/codeForm")
 
-	public String codeForm(Model model) throws Exception {
+	public String codeForm(CodeVo vo, Model model) throws Exception {
 		
-//		List<Code> list = service.selectListCode();
-//		
-//		model.addAttribute("list", list);
+		List<Code> listCodeGroup = service.selectList(vo);
+		model.addAttribute("listCodeGroup", listCodeGroup);
 
 		return "code/codeForm";
 	}
@@ -118,7 +117,7 @@ public class CodeController {
 	
 		service.insertCode(dto);
 		
-		return "";
+		return "redirect:/code/codeList";
 	}
 	
 	@RequestMapping(value = "/code/codeView")
@@ -156,7 +155,7 @@ public class CodeController {
 		// 수정 프로세스 실행 
 		service.updateCode(dto);
 		
-		return "";
+		return "redirect:/code/codeView?ifcdSeq=" + dto.getIfcdSeq();
 	}
 		
 }

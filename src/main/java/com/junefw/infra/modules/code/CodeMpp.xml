@@ -15,6 +15,7 @@
 		SELECT
 		a.ifcgSeq
 		, a.ifcgName
+		, a.ifcgNameEng
 		, a.ifcgDelNy
 		FROM 
 			infrCodeGroup a
@@ -24,6 +25,11 @@
 				<when test="shIfcgDelNy == 0"> AND ifcgDelNy = 0</when>
 			</choose>
 			<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
+			<choose>
+				<when test="shOption == 1"> AND ifcgName LIKE concat('%',#{shValue},'%')</when>
+				<when test="shOption == 2"> AND ifcgNameEng LIKE concat('%',#{shValue},'%')</when>
+			</choose>
+	
 	</select>
 	
 	<insert id="insert">
@@ -59,7 +65,8 @@
 	
 		<select id="selectListCode" resultMap="resultMapObj">
 		SELECT
-		a.ifcdSeq
+		a.ifcgSeq
+		, a.ifcdSeq
 		, a.ifcdName
 		, a.ifcdDelNy
 		FROM 
@@ -67,7 +74,7 @@
 		WHERE 1=1
 			AND ifcdDelNy = 0
 			<if test="shIfcgSeq != null and !shIfcgSeq.equals('')"> AND ifcgSeq = #{shIfcgSeq}</if>
-		order by a.ifcgSeq, ifcdOrder	
+		order by a.ifcgSeq, a.ifcdOrder	
 	</select>
 	
 	<insert id="insertCode">

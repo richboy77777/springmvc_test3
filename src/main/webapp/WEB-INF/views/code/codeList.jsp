@@ -14,7 +14,7 @@
 		</c:forEach>
 </select>
 <input type="submit" name="search">
-<br>
+<br>																		
 <br>
 
 <c:choose>
@@ -25,9 +25,8 @@
 	</c:when>
 	<c:otherwise>
 		<c:forEach items="${list}" var="item" varStatus="status">	
-		
-		<c:out value="${item.ifcdSeq}"/> | <a href="/infra/code/codeView?ifcdSeq=${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></a> <br> 
-		
+		<c:out value="${item.ifcgSeq}"/> CodeGroup | <c:out value="${item.ifcdSeq}"/> Code | <a href="/infra/code/codeView?ifcdSeq=${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></a> | <c:out value="${item.ifcdDelNy}"/><br> 
+									<!-- listCodeGroup[status.index] items 변수 2개 적용시킬시(오류남)-->
 		</c:forEach>
 	</c:otherwise>
 </c:choose>

@@ -18,18 +18,18 @@ public class MemberController {
 	
 	@RequestMapping(value = "/member/memberList")
 //	public String memberList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
-	public String memberList(Model model) throws Exception {
+	public String memberList(MemberVo vo, Model model) throws Exception {
 
-		List<Member> list = service.selectList();
+		List<Member> list = service.selectList(vo);
 		model.addAttribute("list", list);
 
 		return "member/memberList";
 	}
 	
 	@RequestMapping(value = "/member/memberForm")
-	public String memberForm(Model model) throws Exception {
+	public String memberForm(MemberVo vo, Model model) throws Exception {
 		
-		List<Member> list = service.selectList();
+		List<Member> list = service.selectList(vo);
 		model.addAttribute("list", list);
 		
 		

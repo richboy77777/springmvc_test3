@@ -8,8 +8,8 @@
 <form method="post" action="/infra/code/codeInst">
 
 <select name="ifcgSeq">
-	<c:forEach items="${list}" var="item" varStatus="status">
-	<option value="<c:out value="${item.ifcgSeq}"/>"><c:out value="${item.ifcgName}"/>(<c:out value="${item.ifcgSeq}"/>)
+	<c:forEach items="${listCodeGroup}" var="item" varStatus="status">
+	<option value="<c:out value="${item.ifcgSeq}"/>"><c:out value="${item.ifcgName}"/>
 	</c:forEach>
 </select>
 
