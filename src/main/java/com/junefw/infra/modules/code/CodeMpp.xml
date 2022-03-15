@@ -4,107 +4,123 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.junefw.infra.modules.code.CodeMpp">		
+<mapper namespace="com.junefw.infra.modules.code.CodeMpp">
 
 	<resultMap id="resultMapObj"
-		type="com.junefw.infra.modules.code.Code"></resultMap>	
+		type="com.junefw.infra.modules.code.Code"></resultMap>
 
 	<!-- infrCodeGroup -->
-	
+
+	<sql id="selectCommon">
+		FROM
+		infrCodeGroup a
+		WHERE 1=1
+		<choose>
+			<when test="shIfcgDelNy == 1"> AND ifcgDelNy = 1</when>
+			<when test="shIfcgDelNy == 0"> AND ifcgDelNy = 0</when>
+		</choose>
+		<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
+		<choose>
+			<when test="shOption == 1"> AND ifcgName LIKE concat('%',#{shValue},'%')</when>
+			<when test="shOption == 2"> AND ifcgNameEng LIKE concat('%',#{shValue},'%')
+			</when>
+		</choose>
+	</sql>
+
+	<select id="selectOneCount" resultType="Integer">
+		SELECT
+			count(*)
+		<include refid="selectCommon" />
+
+	</select>
+
 	<select id="selectList" resultMap="resultMapObj">
 		SELECT
 		a.ifcgSeq
 		, a.ifcgName
 		, a.ifcgNameEng
 		, a.ifcgDelNy
-		FROM 
-			infrCodeGroup a
-		WHERE 1=1
-			<choose>
-				<when test="shIfcgDelNy == 1"> AND ifcgDelNy = 1</when>
-				<when test="shIfcgDelNy == 0"> AND ifcgDelNy = 0</when>
-			</choose>
-			<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
-			<choose>
-				<when test="shOption == 1"> AND ifcgName LIKE concat('%',#{shValue},'%')</when>
-				<when test="shOption == 2"> AND ifcgNameEng LIKE concat('%',#{shValue},'%')</when>
-			</choose>
-	
+		<include refid="selectCommon" />
+		limit ${startRnumForMysql}, ${rowNumToShow}
 	</select>
-	
+
 	<insert id="insert">
 		INSERT INTO infrcodeGroup (
-		
+
 		ifcgName
 		, ifcgDelNy
-		) values (
-			#{ifcgName}
-			,0
-			)
+		)
+		values (
+		#{ifcgName}
+		,0
+		)
 	</insert>
-	
-		<select id="selectOne" resultMap="resultMapObj">
+
+	<select id="selectOne" resultMap="resultMapObj">
 		SELECT
 		a.ifcgSeq
 		, a.ifcgName
-		, a.ifcgDelNy
-		FROM 
-			infrCodeGroup a
+		,
+		a.ifcgDelNy
+		FROM
+		infrCodeGroup a
 		WHERE 1=1
-			AND ifcgSeq = #{ifcgSeq}
+		AND ifcgSeq = #{ifcgSeq}
 	</select>
-	
+
 	<update id="update">
-		UPDATE infrCodeGroup SET 
-			ifcgName = #{ifcgName}
-		WHERE 1=1
-			AND ifcgSeq = #{ifcgSeq}
+		UPDATE infrCodeGroup SET
+		ifcgName = #{ifcgName}
+		WHERE
+		1=1
+		AND ifcgSeq = #{ifcgSeq}
 	</update>
-	
+
 	<!-- infrCode -->
-	
-		<select id="selectListCode" resultMap="resultMapObj">
+
+	<select id="selectListCode" resultMap="resultMapObj">
 		SELECT
 		a.ifcgSeq
 		, a.ifcdSeq
 		, a.ifcdName
 		, a.ifcdDelNy
-		FROM 
-			infrCode a
+		FROM
+		infrCode a
 		WHERE 1=1
-			AND ifcdDelNy = 0
-			<if test="shIfcgSeq != null and !shIfcgSeq.equals('')"> AND ifcgSeq = #{shIfcgSeq}</if>
-		order by a.ifcgSeq, a.ifcdOrder	
+		AND ifcdDelNy = 0
+		<if test="shIfcgSeq != null and !shIfcgSeq.equals('')"> AND ifcgSeq = #{shIfcgSeq}</if>
+		order by a.ifcgSeq, a.ifcdOrder
 	</select>
-	
+
 	<insert id="insertCode">
 		INSERT INTO infrCode (
 		ifcdName
 		,ifcdDelNy
 		,ifcgSeq
-		) values (
-			#{ifcdName}
-			,0
-			,#{ifcgSeq}
+		)
+		values (
+		#{ifcdName}
+		,0
+		,#{ifcgSeq}
 		)
 	</insert>
-	
-		<select id="selectOneCode" resultMap="resultMapObj">
+
+	<select id="selectOneCode" resultMap="resultMapObj">
 		SELECT
 		a.ifcdSeq
 		, a.ifcdName
 		, a.ifcdDelNy
-		FROM 
-			infrCode a
+		FROM
+		infrCode a
 		WHERE 1=1
-			AND ifcdSeq = #{ifcdSeq}
+		AND ifcdSeq = #{ifcdSeq}
 	</select>
-	
+
 	<update id="updateCode">
-		UPDATE infrCode SET 
-			ifcdName = #{ifcdName}
+		UPDATE infrCode SET
+		ifcdName = #{ifcdName}
 		WHERE 1=1
-			AND ifcdSeq = #{ifcdSeq}
+		AND ifcdSeq = #{ifcdSeq}
 	</update>
 
 </mapper>

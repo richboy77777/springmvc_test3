@@ -6,7 +6,8 @@ import com.junefw.infra.modules.member.Member;
 
 public interface CodeService {
 	
-//	infrCodeGroup
+//	infrCodeGroup	public은 생략가능 abstract가 생략되어있음
+	public int selectOneCount(CodeVo vo) throws Exception;
 	public List<Code> selectList(CodeVo vo) throws Exception; 
 	public int insert(Code dto) throws Exception;
 	public Code selectOne(CodeVo vo) throws Exception;

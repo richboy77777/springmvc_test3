@@ -18,6 +18,7 @@ public class CodeDao { // CodeMpp로 넘겨서 데이터를 받아오ㅓ는 역�
 	private static String namespace = "com.junefw.infra.modules.code.CodeMpp";
 	
 //	infrCodeGroup
+	public int selectOneCount(CodeVo vo) { return sqlSession.selectOne(namespace + ".selectOneCount", vo);}
 	public List<Code> selectList(CodeVo vo) {List<Code> list = sqlSession.selectList(namespace + ".selectList", vo); return list;} // List는 배열임 배열에다가 객체를 쭉 받는다 의미			
 	public int insert(Code dto) {return sqlSession.insert(namespace + ".insert", dto);}
 	public Code selectOne(CodeVo vo) { return sqlSession.selectOne(namespace + ".selectOne", vo);}
