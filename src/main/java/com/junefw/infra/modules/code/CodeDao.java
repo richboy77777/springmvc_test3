@@ -25,6 +25,7 @@ public class CodeDao { // CodeMpp로 넘겨서 데이터를 받아오ㅓ는 역�
 	public int update(Code dto) {return sqlSession.update(namespace + ".update", dto);}
 
 	//	infrCode
+	public int selectOneCodeCount(CodeVo vo) { return sqlSession.selectOne(namespace + ".selectOneCodeCount", vo);}
 	public List<Code> selectListCode(CodeVo vo) {List<Code> list = sqlSession.selectList(namespace + ".selectListCode", vo); return list;} // List는 배열임 배열에다가 객체를 쭉 받는다 의미			
 	public int insertCode(Code dto) {return sqlSession.insert(namespace + ".insertCode", dto);}
 	public Code selectOneCode(CodeVo vo) { return sqlSession.selectOne(namespace + ".selectOneCode", vo);}

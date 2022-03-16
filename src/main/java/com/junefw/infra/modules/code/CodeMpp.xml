@@ -78,18 +78,29 @@
 
 	<!-- infrCode -->
 
-	<select id="selectListCode" resultMap="resultMapObj">
-		SELECT
-		a.ifcgSeq
-		, a.ifcdSeq
-		, a.ifcdName
-		, a.ifcdDelNy
+	<sql id="selectCodeCommon">
 		FROM
 		infrCode a
 		WHERE 1=1
 		AND ifcdDelNy = 0
 		<if test="shIfcgSeq != null and !shIfcgSeq.equals('')"> AND ifcgSeq = #{shIfcgSeq}</if>
 		order by a.ifcgSeq, a.ifcdOrder
+	</sql>
+	
+	<select id="selectOneCodeCount" resultType="Integer">
+		SELECT
+			count(*)
+		<include refid="selectCodeCommon" />
+	</select>
+
+	<select id="selectListCode" resultMap="resultMapObj">
+		SELECT
+		a.ifcgSeq
+		, a.ifcdSeq
+		, a.ifcdName
+		, a.ifcdDelNy
+		<include refid="selectCodeCommon" />
+		limit ${startRnumForMysql}, ${rowNumToShow}
 	</select>
 
 	<insert id="insertCode">
