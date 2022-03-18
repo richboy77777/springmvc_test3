@@ -54,6 +54,9 @@
 		#{ifcgName}
 		,0
 		)
+		<selectKey resultType="String" keyProperty="ifcgSeq" order="AFTER">	<!-- 이 쿼리문은 서비스임플에서 인서트 코드그룹dto 내용이 코드dto 내용으로 넘어갈때 ifcgSeq도 자동 맵핑해서 넘어가게 해줌 -->
+			SELECT last_insert_id()	
+		</selectKey>
 	</insert>
 
 	<select id="selectOne" resultMap="resultMapObj">

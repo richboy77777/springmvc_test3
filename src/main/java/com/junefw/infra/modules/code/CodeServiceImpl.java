@@ -11,6 +11,8 @@ public class CodeServiceImpl implements CodeService {
 	@Autowired
 	CodeDao dao;
 
+	//	insert, update, delete 는 컨트롤러가 아니라 서비스 임플에 작성함!!! 이유는 다음주월요일(3월 21일)에 공개함
+	
 	// infrCodeGroup
 
 	@Override
@@ -26,7 +28,9 @@ public class CodeServiceImpl implements CodeService {
 
 	@Override
 	public int insert(Code dto) throws Exception {
-		return dao.insert(dto);
+		dao.insert(dto);	// ifcgName, ifcdName
+		dao.insertCode(dto);	//ifcgName, ifcdName, ifcgSeq
+		return 1;
 	}
 
 	@Override
