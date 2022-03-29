@@ -63,8 +63,7 @@
 		SELECT
 		a.ifcgSeq
 		, a.ifcgName
-		,
-		a.ifcgDelNy
+		, a.ifcgDelNy
 		FROM
 		infrCodeGroup a
 		WHERE 1=1
@@ -78,6 +77,21 @@
 		1=1
 		AND ifcgSeq = #{ifcgSeq}
 	</update>
+	
+	<update id="updateDelete">
+		UPDATE infrCodeGroup SET ifcgDelNy = 1 
+		WHERE
+		1=1
+		AND ifcgSeq = #{ifcgSeq}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM infrCodeGroup
+		WHERE
+		1=1
+		AND ifcgSeq = #{ifcgSeq}
+	</delete>
+	
 
 	<!-- infrCode -->
 
@@ -136,5 +150,17 @@
 		WHERE 1=1
 		AND ifcdSeq = #{ifcdSeq}
 	</update>
+	
+	<select id="selectListForCache" resultMap="resultMapObj">
+		SELECT
+			ifcdSeq
+			, ifcdName
+			, ifcgSeq
+		FROM
+			infrCode 
+		WHERE 1=1
+			AND ifcdDelNy = 0
+			AND ifcdUseNy = 1
+	</select>
 
 </mapper>

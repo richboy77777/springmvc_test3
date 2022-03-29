@@ -2,11 +2,15 @@ package com.junefw.infra.modules.code;
 
 import java.util.List;
 
+import javax.lang.model.element.ModuleElement.RequiresDirective;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CodeController {
@@ -16,8 +20,9 @@ public class CodeController {
 	CodeServiceImpl service;
 
 //	infrCodeGroup
-	@RequestMapping(value = "/code/codeGroupList")
-
+	@RequestMapping(value = "/code/codeGroupList")	// codeGroupList에서 form 부분을 post로 바꾼뒤 GET은 화면자체는 출력됨 다만 제출하면 POST 방식이 아니라서 오류뜸
+																				// POST로 할 경우 처음부터 codeGroupList url 안먹힘 홈페이지 통째로 post 처리되서 접속불가임
+																				// method = RequestMethod.GET, method = RequestMethod.POST
 	public String codeGroupList(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
 								//@ModelAttribute는 jsp로 보내는 vo 옆에 CodeVo오는 여기 코드그룹리스트에 사용하는 vo
 		// count 가져올 것
@@ -41,28 +46,44 @@ public class CodeController {
 
 	@RequestMapping(value = "/code/codeGroupForm")
 
-	public String codeGroupForm() throws Exception {
+	public String codeGroupForm(@ModelAttribute("vo") CodeVo vo) throws Exception {
 
 		return "code/codeGroupForm";
 	}
 
 	@RequestMapping(value = "/code/codeGroupInst")
 
-	public String codeGroupInst(Code dto) throws Exception {
+	public String codeGroupInst(Code dto, CodeVo vo) throws Exception {
 
-		System.out.println();
+		System.out.println("dto.getIfcgSeq(): " + dto.getIfcgSeq());  //null
 
 //		입력 실행
 		service.insert(dto);
 
-		return "redirect:/code/codeGroupList";
+		System.out.println("dto.getIfcgSeq(): " + dto.getIfcgSeq());  // 추가된 갯수나옴
+		
+//		return "redirect:/code/codeGroupList";
+//		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq();
+//		return "redirect:/code/codeGroupList?ifcgSeq=" + dto.getIfcgSeq() + "&thisPage=" + vo.getThisPage() + "&shOption=" + vo.getShOption() + "&shValue=" + vo.getShValue();
+		return "redirect:/code/codeGroupList?ifcgSeq=" + dto.getIfcgSeq() + makeQueryString(vo);
 	}
+	
+	
+	  public String makeQueryString(CodeVo vo) { 
+	  String tmp = "&thisPage=" + vo.getThisPage() + "&shOption=" + vo.getShOption() + "&shValue=" + vo.getShValue(); 
+	  return tmp; 
+	  }
+	 
 
 	@RequestMapping(value = "/code/codeGroupView")
 
-	public String codeGroupView(CodeVo vo, Model model) throws Exception {
-
+	public String codeGroupView(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
+		System.out.println("#####################################");
+		System.out.println("vo.getShOption(): " +vo.getShOption());
+		System.out.println("vo.getShValue(): " + vo.getShValue());
+		System.out.println("vo.getThisPage(): " + vo.getThisPage());
 		System.out.println("vo.getIfcgSeq(): " + vo.getIfcgSeq());
+		System.out.println("#####################################");
 
 		// 디비까지 가서 한 건의 데이터 값을 가지고 온다, VO
 		Code rt = service.selectOne(vo);
@@ -76,7 +97,7 @@ public class CodeController {
 	// 수정폼이 보여지는 주소
 
 	@RequestMapping(value = "/code/codeGroupForm2")
-	public String codeGroupForm2(CodeVo vo, Model model) throws Exception {
+	public String codeGroupForm2(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
 
 		// 한건의 데이터 가져오기
 		Code rt = service.selectOne(vo);
@@ -89,14 +110,40 @@ public class CodeController {
 	// 실제 수정을 하는 주소
 
 	@RequestMapping(value = "/code/codeGroupUpdt")
-	public String codeGroupUpdt(Code dto) throws Exception {
+	public String codeGroupUpdt(Code dto, CodeVo vo) throws Exception {
 
 		// 수정 프로세스 실행
 		service.update(dto);
 
-		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq();
-	}
 
+//		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq() + "&thisPage=" + vo.getThisPage() + "&shOption=" + vo.getShOption() + "&shValue=" + vo.getShValue();
+		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq() + makeQueryString(vo);
+	}
+	
+	@RequestMapping(value = "/code/codeGroupDele")
+	public String codeGroupDele(CodeVo vo, RedirectAttributes redirectAttributes) throws Exception {
+
+		service.delete(vo);
+		
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());
+		redirectAttributes.addAttribute("shOption", vo.getShOption());
+		redirectAttributes.addAttribute("shValue", vo.getShValue());
+
+		return "redirect:/code/codeGroupList";
+	}
+	
+	@RequestMapping(value = "/code/codeGroupNele")
+	public String codeGroupNele(CodeVo vo, RedirectAttributes redirectAttributes) throws Exception {
+		
+		service.updateDelete(vo);
+		
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());
+		redirectAttributes.addAttribute("shOption", vo.getShOption());
+		redirectAttributes.addAttribute("shValue", vo.getShValue());
+		
+		return "redirect:/code/codeGroupList";
+	}
+	
 //	infrCode
 
 	@RequestMapping(value = "/code/codeList")

@@ -12,6 +12,8 @@ public interface CodeService {
 	public int insert(Code dto) throws Exception;
 	public Code selectOne(CodeVo vo) throws Exception;
 	public int update(Code dto) throws Exception;
+	public int delete(CodeVo vo) throws Exception;
+	public int updateDelete(CodeVo vo) throws Exception;
 	
 //	infrCode
 	public int selectOneCodeCount(CodeVo vo) throws Exception;

@@ -21,24 +21,24 @@ public class CodeVo {
 	private String shValue;
 
 //	paging
-	private int thisPage = 1; // 현재 페이지
-	private int rowNumToShow = 10; // 화면에 보여줄 데이터 줄 갯수
-	private int pageNumToShow = 5; // 화면에 보여줄 페이징 번호 갯수
+	private Integer thisPage = 1; // 현재 페이지
+	private Integer rowNumToShow = 10; // 화면에 보여줄 데이터 줄 갯수
+	private Integer pageNumToShow = 5; // 화면에 보여줄 페이징 번호 갯수
 
-	private int totalRows; // 전체 데이터 갯수
-	private int totalPages; // 전체 페이지 번호
-	private int startPage; // 시작 페이지 번호
-	private int endPage; // 마지막 페이지 번호
+	private Integer totalRows; // 전체 데이터 갯수
+	private Integer totalPages; // 전체 페이지 번호
+	private Integer startPage; // 시작 페이지 번호
+	private Integer endPage; // 마지막 페이지 번호
 
-	private int startRnumForOracle = 1; // 쿼리 시작 row
-	private int endRnumForOracle; // 쿼리 끝 row
+	private Integer startRnumForOracle = 1; // 쿼리 시작 row
+	private Integer endRnumForOracle; // 쿼리 끝 row
 	private Integer RNUM;
 
-	private int startRnumForMysql = 0; // 쿼리 시작 row
+	private Integer startRnumForMysql = 0; // 쿼리 시작 row
 
 	// ----------------
 
-	public void setParamsPaging(int totalRowsParam) {
+	public void setParamsPaging(Integer totalRowsParam) {
 
 		totalRows = totalRowsParam;
 
@@ -139,75 +139,75 @@ public class CodeVo {
 		this.shValue = shValue;
 	}
 
-	public int getThisPage() {
+	public Integer getThisPage() {
 		return thisPage;
 	}
 
-	public void setThisPage(int thisPage) {
+	public void setThisPage(Integer thisPage) {
 		this.thisPage = thisPage;
 	}
 
-	public int getRowNumToShow() {
+	public Integer getRowNumToShow() {
 		return rowNumToShow;
 	}
 
-	public void setRowNumToShow(int rowNumToShow) {
+	public void setRowNumToShow(Integer rowNumToShow) {
 		this.rowNumToShow = rowNumToShow;
 	}
 
-	public int getPageNumToShow() {
+	public Integer getPageNumToShow() {
 		return pageNumToShow;
 	}
 
-	public void setPageNumToShow(int pageNumToShow) {
+	public void setPageNumToShow(Integer pageNumToShow) {
 		this.pageNumToShow = pageNumToShow;
 	}
 
-	public int getTotalRows() {
+	public Integer getTotalRows() {
 		return totalRows;
 	}
 
-	public void setTotalRows(int totalRows) {
+	public void setTotalRows(Integer totalRows) {
 		this.totalRows = totalRows;
 	}
 
-	public int getTotalPages() {
+	public Integer getTotalPages() {
 		return totalPages;
 	}
 
-	public void setTotalPages(int totalPages) {
+	public void setTotalPages(Integer totalPages) {
 		this.totalPages = totalPages;
 	}
 
-	public int getStartPage() {
+	public Integer getStartPage() {
 		return startPage;
 	}
 
-	public void setStartPage(int startPage) {
+	public void setStartPage(Integer startPage) {
 		this.startPage = startPage;
 	}
 
-	public int getEndPage() {
+	public Integer getEndPage() {
 		return endPage;
 	}
 
-	public void setEndPage(int endPage) {
+	public void setEndPage(Integer endPage) {
 		this.endPage = endPage;
 	}
 
-	public int getStartRnumForOracle() {
+	public Integer getStartRnumForOracle() {
 		return startRnumForOracle;
 	}
 
-	public void setStartRnumForOracle(int startRnumForOracle) {
+	public void setStartRnumForOracle(Integer startRnumForOracle) {
 		this.startRnumForOracle = startRnumForOracle;
 	}
 
-	public int getEndRnumForOracle() {
+	public Integer getEndRnumForOracle() {
 		return endRnumForOracle;
 	}
 
-	public void setEndRnumForOracle(int endRnumForOracle) {
+	public void setEndRnumForOracle(Integer endRnumForOracle) {
 		this.endRnumForOracle = endRnumForOracle;
 	}
 
@@ -219,11 +219,11 @@ public class CodeVo {
 		RNUM = rNUM;
 	}
 
-	public int getStartRnumForMysql() {
+	public Integer getStartRnumForMysql() {
 		return startRnumForMysql;
 	}
 
-	public void setStartRnumForMysql(int startRnumForMysql) {
+	public void setStartRnumForMysql(Integer startRnumForMysql) {
 		this.startRnumForMysql = startRnumForMysql;
 	}
 

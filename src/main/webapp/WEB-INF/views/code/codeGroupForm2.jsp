@@ -6,7 +6,12 @@
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
 <form method="post" action="/infra/code/codeGroupUpdt">
+	<input type="hidden" name="shOption" value="<c:out value="${vo.shOption}"/>">
+	<input type="hidden" name="shValue" value="<c:out value="${vo.shValue}"/>">
+	<input type="hidden" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
+	
 	<input type="hidden" name="ifcgSeq" value="<c:out value="${rt.ifcgSeq}"/>">
-	<input type="text" name="ifcgName" placeholder="아이디" value="<c:out value="${rt.ifcgName}"/>">
+	<input type="text" name="ifcgName" placeholder="코드그룹" value="<c:out value="${rt.ifcgName}"/>">
 	<input type="submit" value="제출">
 </form>
+
