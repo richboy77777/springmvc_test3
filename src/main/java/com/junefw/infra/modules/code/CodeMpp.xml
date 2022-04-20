@@ -22,8 +22,7 @@
 		<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
 		<choose>
 			<when test="shOption == 1"> AND ifcgName LIKE concat('%',#{shValue},'%')</when>
-			<when test="shOption == 2"> AND ifcgNameEng LIKE concat('%',#{shValue},'%')
-			</when>
+			<when test="shOption == 2"> AND ifcgNameEng LIKE concat('%',#{shValue},'%')</when>
 		</choose>
 	</sql>
 
@@ -41,7 +40,7 @@
 		, a.ifcgNameEng
 		, a.ifcgDelNy
 		<include refid="selectCommon" />
-		limit ${startRnumForMysql}, ${rowNumToShow}
+		limit #{startRnumForMysql}, #{rowNumToShow}
 	</select>
 
 	<insert id="insert">
@@ -49,10 +48,14 @@
 
 		ifcgName
 		, ifcgDelNy
+		, originalFileName
+		, uuidFileName
 		)
 		values (
 		#{ifcgName}
 		,0
+		,#{originalFileName}
+		,#{uuidFileName}
 		)
 		<selectKey resultType="String" keyProperty="ifcgSeq" order="AFTER">	<!-- 이 쿼리문은 서비스임플에서 인서트 코드그룹dto 내용이 코드dto 내용으로 넘어갈때 ifcgSeq도 자동 맵핑해서 넘어가게 해줌 -->
 			SELECT last_insert_id()	
@@ -64,6 +67,8 @@
 		a.ifcgSeq
 		, a.ifcgName
 		, a.ifcgDelNy
+		, a.originalFileName
+		, a.uuidFileName
 		FROM
 		infrCodeGroup a
 		WHERE 1=1

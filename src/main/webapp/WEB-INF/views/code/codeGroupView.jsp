@@ -14,7 +14,7 @@
 	<input type="hidden" id="shOption" name="shOption" value="<c:out value="${vo.shOption}"/>">
 	<input type="hidden" id="shValue" name="shValue" value="<c:out value="${vo.shValue}"/>">
 
-<c:out value="${item.ifcgSeq}"/> | <c:out value="${item.ifcgName}"/> | <c:out value="${item.ifcgDelNy}"/> <br>
+<c:out value="${item.ifcgSeq}"/> | <c:out value="${item.ifcgName}"/> | <c:out value="${item.ifcgDelNy}"/> |<c:out value="${item.originalFileName}"/>| <c:out value="${item.uuidFileName}"/>
 
 <%-- <a href="/infra/code/codeGroupList?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">목록</a> --%>
 <a href="javascript:goList()">목록</a>
@@ -22,11 +22,25 @@
 <a href="javascript:goEdit()">수정</a>
 <a href="/infra/code/codeGroupDele?ifcgSeq=<c:out value="${item.ifcgSeq}"/>" id="btnDelete">삭제(진짜)</a>
 <a href="/infra/code/codeGroupNele?ifcgSeq=<c:out value="${item.ifcgSeq}"/>" id="btnupdateDelete">삭제(가짜)</a>
+<a href="/infra/resources/uploaded/<c:out value="${item.uuidFileName}"/>" download="<c:out value="${item.originalFileName}"/>"><img src="/infra/resources/uploaded/<c:out value="${item.uuidFileName}"/>"></a>
 
 </form>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script type="text/javascript">
+
+goList = function(){
+	$("#formView").attr("action", "/infra/code/codeGroupList");
+	$("#formView").submit();
+};
+
+goEdit = function(){
+	$("#formView").attr("action", "/infra/code/codeGroupForm2");
+	$("#formView").submit();
+};
+
+
 $("#btnDelete").on("click", function() {
 	var answer = confirm ('삭제 하시겠습니까?');
 	

@@ -3,6 +3,8 @@ package com.junefw.infra.modules.code;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Code {
 	
 	//DTO
@@ -12,11 +14,22 @@ public class Code {
 	private String ifcgNameEng;
 	private Integer ifcgDelNy;
 	
+
 //	infrCode
 	private String	ifcdSeq;
 	private String	ifcdName;
 	private String	ifcdDelNy;
 //	private String	ifcgSeq;
+	
+
+//	uploaded
+	public MultipartFile file;
+	public MultipartFile file1;
+	
+//	plus
+	public String originalFileName;
+	public String uuidFileName;
+	
 	
 //  for cache
 	public static List<Code> cachedCodeArrayList = new ArrayList<Code>();
@@ -69,6 +82,30 @@ public class Code {
 	}
 	public static void setCachedCodeArrayList(List<Code> cachedCodeArrayList) {
 		Code.cachedCodeArrayList = cachedCodeArrayList;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	public MultipartFile getFile1() {
+		return file1;
+	}
+	public void setFile1(MultipartFile file1) {
+		this.file1 = file1;
+	}
+	public String getOriginalFileName() {
+		return originalFileName;
+	}
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
+	public String getUuidFileName() {
+		return uuidFileName;
+	}
+	public void setUuidFileName(String uuidFileName) {
+		this.uuidFileName = uuidFileName;
 	}
 
 	

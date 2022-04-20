@@ -10,7 +10,10 @@
 
 <form id="formList" name="formList" method="post" action="/infra/code/codeGroupList">
 	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>">
-	<input type="hidden" id="ifcgSeq" name="ifcgSeq">
+	<input type="hidden" id="ifcgSeq" name="ifcgSeq" value="<c:out value="${vo.ifcgSeq}"/>">
+<%-- 	<input type="hidden" id="shIfcgDelNy" name="shIfcgDelNy" value="<c:out value="${vo.shIfcgDelNy}"/>">
+ --%>	<%-- <input type="hidden" id="shOption" name="shOption" value="<c:out value="${vo.shOption}"/>"> --%>
+	<%-- <input type="hidden" id="shValue" name="shValue" value="<c:out value="${vo.shValue}"/>"> --%>
 	
 	<select name="shIfcgDelNy" id="shIfcgDelNy">
 		<option value="">::삭제여부::
@@ -37,7 +40,7 @@
 			<c:forEach items="${list}" var="item" varStatus="status">
 
 				<%-- <c:out value="${item.ifcgSeq}" /> | <a href="/infra/code/codeGroupView?ifcgSeq=<c:out value="${item.ifcgSeq}"/>&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption }"/>&shValue=<c:out value="${vo.shValue }"/>"><c:out value="${item.ifcgName}" /></a> | <c:out value="${item.ifcgNameEng}" /> | <c:out value="${item.ifcgDelNy}" /> --%>
-				<c:out value="${item.ifcgSeq}" /> | <a href="javascript:goForm(<c:out value="${item.ifcgSeq}"/>)"><c:out value="${item.ifcgName}"/></a> | <c:out value="${item.ifcgNameEng}" /> | <c:out value="${item.ifcgDelNy}" />
+				<c:out value="${item.ifcgSeq}" /> | <a href="javascript:goView(<c:out value="${item.ifcgSeq}"/>)"><c:out value="${item.ifcgName}"/></a> | <c:out value="${item.ifcgNameEng}" /> | <c:out value="${item.ifcgDelNy}" />
 				<br>
 	
 			</c:forEach>
@@ -88,13 +91,15 @@
 	</c:choose>
 </c:forEach>     
 <c:if test="${vo.endPage ne vo.totalPages}">                
-                <li class="page-item"><a class="page-link" href="javascript:goList(<c:out value='${vo.endPage}'/>);">Next</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:goList(<c:out value='${vo.endPage + 1}'/>);">Next</a></li>
 </c:if> 
 
   </ul>
 </nav>
 
-<a href="http://localhost:8080/infra/code/codeGroupForm?thisPage=<c:out value="${vo.thisPage}"/>&shIfcgDelNy=<c:out value="${vo.shIfcgDelNy }"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">등록</a>
+<%-- <a href="http://localhost:8080/infra/code/codeGroupForm?thisPage=<c:out value="${vo.
+}"/>&shIfcgDelNy=<c:out value="${vo.shIfcgDelNy }"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">등록</a> --%>
+<a href="javascript:goForm()">등록</a>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/infra/resources/js/validation.js"></script>
@@ -113,6 +118,12 @@
 		
 	});
 	
+	goForm = function(){
+		$("#formList").attr("action", "/infra/code/codeGroupForm");
+		$("#formList").submit();
+	};
+	
+	
 	goList = function(Seq) {
 		alert(Seq);
 		//form 객체를 가져 온다.
@@ -120,7 +131,7 @@
 		$("#formList").submit();
 	}
 	
-	goForm = function(seq) {
+	goView = function(seq) {
 		alert(seq);
 		$("#ifcgSeq").val(seq);
 		$("#formList").attr("action", "/infra/code/codeGroupView");

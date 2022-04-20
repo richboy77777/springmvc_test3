@@ -9,18 +9,21 @@
 <link href="/infra/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet"> 
 
 
-<form  id="form" method="post" action="/infra/code/codeGroupInst">
+<!-- <form  id="form" method="post" action="/infra/code/codeGroupInst">  -->
+<form  id="form" method="post" action="/infra/code/codeGroupInst" enctype="multipart/form-data"> 
 	<input type="hidden" name="thisPage" value="<c:out value="${vo.thisPage }"/>">
 	<input type="hidden" name="shOption" value="<c:out value="${vo.shOption }"/>">
 	<input type="hidden" name="shValue" value="<c:out value="${vo.shValue }"/>">
 	<input type="hidden" name="">	
 	<input type="text" id="ifcgName" name="ifcgName" placeholder="코드그룹">
-	<input type="text" id="abcDate" name="abcDate">
+	<input type="text" id="abcDate" name="abcDate"> 
 	<!-- <input type="text" id="ifcdName" name="ifcdName" placeholder="코드"> -->
+	<br><input type="file" name="file"> 
+	<br><input type="file" name="file1">  
 	<input type="submit" id="btnSubmit" value="제출">
 </form>
 	
-<a href="/infra/code/codeGroupList??thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">목록</a>
+<a href="/infra/code/codeGroupList?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">목록</a>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/infra/resources/js/validation.js"></script>
